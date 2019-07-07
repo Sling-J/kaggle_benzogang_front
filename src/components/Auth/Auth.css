@@ -1,7 +1,46 @@
 .auth-box {
+   padding-top: 60px;
    max-width: 700px;
+   margin: 0 auto;
+   text-align: center;
 }
 
 .auth-box h1 {
    font-weight: 400;
+   margin-bottom: 20px;
+}
+
+.auth-box form div {
+   position: relative;
+}
+
+.auth-box span {
+   top: 35px;
+   font-size: 15px;
+   left: 20px;
+   position: absolute;
+}
+
+.auth-box form input {
+   border: 1px solid #DEDFE0;
+   display: block;
+   margin-bottom: 20px;
+   width: 100%;
+   padding: 10px;
+}
+
+.auth-box button {
+   background: #20BEFF;
+   color: #fff;
+   border: none;
+   padding: 8px 35px;
+}
+
+.auth-box button:hover {
+   background: #1380ad;
+   cursor: pointer;
+}
+
+.auth-other {
+   margin-top: 10px;
 }

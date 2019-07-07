@@ -54,10 +54,9 @@ export default withFormik({
    }),
    handleSubmit: (values, { props }) => {
       props.createDatsets(values);
-      // values.title = '';
-      // values.description = '';
-      // values.data = '';
-      console.log(values.data.value)
+      values.title = '';
+      values.description = '';
+      values.data = '';
    },
    validationSchema: Yup.object().shape({
       title: Yup.string().required(),

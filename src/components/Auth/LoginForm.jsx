@@ -8,19 +8,15 @@ import Spinner from '../UI/spinner/spinner'
 
 import './Auth.css'
 
-const RegisterForm = ({ errors, touched, loadingOfForm, errorMessage, userData }) => {
+const LoginForm = ({ errors, touched, loadingOfForm, errorMessage, userData }) => {
    const _renderMessage = message => (
       <span style={{color: 'tomato'}}> { message }</span>
    );
 
    return (
       <div className="auth-box">
-         <h1>Sign up</h1>
+         <h1>Sign in</h1>
          <Form>
-            <FormGroup>
-               <Field type="text" name="username" placeholder="Username" />
-               { touched.username && errors.username && _renderMessage(errors.username) }
-            </FormGroup>
             <FormGroup>
                <Field type="email" name="email" placeholder="Email" />
                { touched.email && errors.email && _renderMessage(errors.email) }
@@ -29,17 +25,13 @@ const RegisterForm = ({ errors, touched, loadingOfForm, errorMessage, userData }
                <Field type="password" name="password" placeholder="Password" />
                { touched.password && errors.password && _renderMessage(errors.password) }
             </FormGroup>
-            <FormGroup>
-               <Field type="password" name="password2" placeholder="Repeat password" />
-               { touched.password2 && errors.password2 && _renderMessage(errors.password2) }
-            </FormGroup>
 
             <FormGroup>
-               <button className="transition" disabled={loadingOfForm} type="submit">Sign up</button>
+               <button className="transition" disabled={loadingOfForm} type="submit">Sign in</button>
             </FormGroup>
             <FormGroup>
                {errorMessage && <p>{_renderMessage(errorMessage)}</p>}
-               {/* { userData && <p>Successfully registered. <Link to="signin">Log on</Link></p> } */}
+               { userData && <Redirect to="/signin" /> }
             </FormGroup>
             <FormGroup>
                {loadingOfForm && <Spinner />}
@@ -47,7 +39,7 @@ const RegisterForm = ({ errors, touched, loadingOfForm, errorMessage, userData }
          </Form>
 
          <p className="auth-other">
-            <Link to="/signin">Sign in</Link>
+            <Link to="/signup">Sign up</Link>
          </p>
       </div>
    )
@@ -68,7 +60,35 @@ export default withFormik({
    validationSchema: Yup.object().shape({
       username: Yup.string().required(),
       email: Yup.string().email('Email not valid').required(),
-      password: Yup.string().required(),
-      password2: Yup.string().required()
+      password: Yup.string()
+         .min(8)
+         .required()
+         .matches(/\d/, {
+            message: 'Must be one number',
+            excludeEmptyString: true
+         })
+         .matches(/[a-z]/, {
+            message: 'Lowercase',
+            excludeEmptyString: true
+         })
+         .matches(/[A-Z]/, {
+            message: 'Uppercase',
+            excludeEmptyString: true
+         }),
+      password2: Yup.string()
+         .min(8)
+         .required()
+         .matches(/\d/, {
+            message: 'Must be number number',
+            excludeEmptyString: true
+         })
+         .matches(/[a-z]/, {
+            message: 'Lowercase',
+            excludeEmptyString: true
+         })
+         .matches(/[A-Z]/, {
+            message: 'Uppercase',
+            excludeEmptyString: true
+         }),
    }),
-})(RegisterForm);
+})(LoginForm);
