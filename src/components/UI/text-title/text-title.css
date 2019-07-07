@@ -1,0 +1,14 @@
+body h3 {
+   font-weight: 600;
+   font-size: 1.4em;
+   margin-bottom: 40px;
+}
+
+h3::before {
+   content: '';
+   display: block;
+   background: #20BEFF;
+   width: 30px;
+   height: 3px;
+   margin-bottom: 10px;
+}

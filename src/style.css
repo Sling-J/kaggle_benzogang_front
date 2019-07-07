@@ -1,0 +1,67 @@
+body {
+   margin: 0;
+   font-size: 16px;
+   background: #F5F9FA;
+   font-family: 'Open Sans', sans-serif;
+}
+
+p,
+ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+   padding: 0;
+   margin: 0;
+   list-style: none;
+}
+
+p {
+   line-height: 1.8;
+}
+
+a {
+   text-decoration: none;
+}
+
+.flex {
+   display: -webkit-box;
+   display: -ms-flexbox;
+   display: flex;
+}
+
+.flex-wrap {
+   -ms-flex-wrap: wrap;
+       flex-wrap: wrap;
+}
+
+.j-sb {
+   -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+}
+
+.j-se {
+   -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+}
+
+.flex-align-center {
+   -webkit-box-align: center;
+      -ms-flex-align: center;
+         align-items: center;
+}
+
+.flex-align-bottom {
+   -webkit-box-align: end;
+      -ms-flex-align: end;
+    align-items: flex-end;
+}
+
+.transition {
+   -webkit-transition: all 0.3s;
+           transition: all 0.3s;
+}

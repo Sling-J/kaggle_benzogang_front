@@ -1,0 +1,18 @@
+footer {
+   /* background: #fff; */
+   padding: 100px 0;
+}
+
+.footer-logo h2 {
+   color: #20BEFF;
+   margin-bottom: 20px;
+}
+
+.footer-logo p {
+   color: #C5D1E3;
+   font-size: 15px;
+}
+
+.footer-logo p a {
+   color: #20BEFF;
+}
