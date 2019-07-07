@@ -1,6 +1,7 @@
 import React from 'react';
-import { Wrapper } from '../style'
+import { Link } from 'react-router-dom';
 
+import { Wrapper } from '../style'
 import TextTitle from '../UI/text-title/text-title';
 
 import './Home.css'
@@ -75,6 +76,8 @@ const TopDatasets = () => {
             <TextTitle>Top Datasets</TextTitle>
             
             <DatasetBox />
+
+            <Link className="btn-link transition" to="/datasets">Load more</Link>
          </Wrapper>
       </section>
    )

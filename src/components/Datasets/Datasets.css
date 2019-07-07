@@ -1,0 +1,9 @@
+.datasets-page {
+   background: url('../../assets/img/main-bg.jpg');
+   padding-top: 40px;
+}
+
+.add-dataset {
+   margin-bottom: 10px;
+   display: inline-block;
+}

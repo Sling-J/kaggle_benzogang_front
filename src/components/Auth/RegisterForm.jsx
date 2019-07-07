@@ -8,7 +8,7 @@ import Spinner from '../UI/spinner/spinner'
 
 import './Auth.css'
 
-const RegisterForm = ({ errors, touched, loadingOfForm, errorMessage }) => {
+const RegisterForm = ({ errors, touched, loadingOfForm, errorMessage, userData }) => {
    const _renderMessage = message => (
       <span style={{color: 'tomato'}}> { message }</span>
    );
@@ -39,6 +39,7 @@ const RegisterForm = ({ errors, touched, loadingOfForm, errorMessage }) => {
             </FormGroup>
             <FormGroup>
                {errorMessage && <p>{_renderMessage(errorMessage)}</p>}
+               { userData && <p>Success</p> }
             </FormGroup>
             <FormGroup>
                {loadingOfForm && <Spinner />}
@@ -60,43 +61,42 @@ export default withFormik({
       password2: ''
    }),
    handleSubmit: (values, { props }) => {
-      props.registerUser(values)
+      props.registerUser(values);
+      values.password = '';
+      values.password2 = '';
    },
    validationSchema: Yup.object().shape({
       username: Yup.string().required(),
       email: Yup.string().email('Email not valid').required(),
-      password: Yup.string().required(),
-      password2: Yup.string().required()
+      password: Yup.string()
+         .min(8)
+         .required()
+         .matches(/\d/, {
+            message: 'Must be one number',
+            excludeEmptyString: true
+         })
+         .matches(/[a-z]/, {
+            message: 'Lowercase',
+            excludeEmptyString: true
+         })
+         .matches(/[A-Z]/, {
+            message: 'Uppercase',
+            excludeEmptyString: true
+         }),
+      password2: Yup.string()
+         .min(8)
+         .required()
+         .matches(/\d/, {
+            message: 'Must be one number',
+            excludeEmptyString: true
+         })
+         .matches(/[a-z]/, {
+            message: 'Lowercase',
+            excludeEmptyString: true
+         })
+         .matches(/[A-Z]/, {
+            message: 'Uppercase',
+            excludeEmptyString: true
+         }),
    }),
 })(RegisterForm);
-
-// password: Yup.string()
-//          .min(6)
-//          .required()
-//          .matches(/\d/, {
-//             message: 'Must be one number',
-//             excludeEmptyString: true
-//          })
-//          .matches(/[a-z]/, {
-//             message: 'Lowercase',
-//             excludeEmptyString: true
-//          })
-//          .matches(/[A-Z]/, {
-//             message: 'Uppercase',
-//             excludeEmptyString: true
-//          }),
-//       password2: Yup.string()
-//          .min(6)
-//          .required()
-//          .matches(/\d/, {
-//             message: 'Must be one number',
-//             excludeEmptyString: true
-//          })
-//          .matches(/[a-z]/, {
-//             message: 'Lowercase',
-//             excludeEmptyString: true
-//          })
-//          .matches(/[A-Z]/, {
-//             message: 'Uppercase',
-//             excludeEmptyString: true
-//          }),

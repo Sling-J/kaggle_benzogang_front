@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { NavMenu } from './style';
 
@@ -7,11 +8,11 @@ const Menu = () => {
       <NavMenu className="flex j-sb">
          <div className="flex">
             <div className="logo">
-               <a href="/">Kaggle.kz</a>
+               <Link to="/">Kaggle.kz</Link>
             </div>
             <ul className="flex flex-align-center">
                <li>
-                  <a href="/">Datasets</a>
+                  <Link to="/datasets">Datasets</Link>
                </li>
                <li>
                   <a href="/">Competitions</a>
@@ -19,7 +20,7 @@ const Menu = () => {
             </ul>
          </div>
          <div className="login-wrap">
-            <a href="/">Sing in</a>
+            <Link to="/signin">Sing in</Link>
          </div>
       </NavMenu>
    )

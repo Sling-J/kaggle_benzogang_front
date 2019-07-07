@@ -1,4 +1,3 @@
-import { NotificationManager } from 'react-notifications';
 import { all, call, put, takeEvery } from 'redux-saga/effects'
 import { Auth } from '../service';
 
