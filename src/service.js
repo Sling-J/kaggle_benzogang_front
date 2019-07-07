@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost/api/'
+const baseUrl = 'http://localhost:8000/api'
 
 const instance = axios.create({
 	baseURL: baseUrl,
@@ -8,3 +8,7 @@ const instance = axios.create({
 		'Content-Type': 'application/json'
 	}
 });
+
+export const Auth = {
+	registerUser: values => instance.post('/users/create/', values)
+}

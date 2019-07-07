@@ -1,20 +1,20 @@
 import React from 'react';
-// import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from "react-router-dom";
 
-// import store from './store'
+import store from './redux/index'
 import Root from './components/root';
 import ErrorBoundary from './components/UI/error-boundary/error-boundary'
 
 const App = () => {
    return (
-      // <Provider>
+      <Provider store={store}>
          <ErrorBoundary>
             <Router>
                <Root />
             </Router>
          </ErrorBoundary>
-      // </Provider>
+      </Provider>
    )
 };
 

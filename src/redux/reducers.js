@@ -1,9 +1,7 @@
-const initialState = {
-   state: null
-}
+import { combineReducers } from 'redux';
 
-const reducers = (state = initialState) => {
-   return state;
-}
+import authReducer from '../ducks/Auth';
 
-export default reducers;
+export default combineReducers({
+   authReducer
+});

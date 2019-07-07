@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Wrapper } from '../style'
 
 import TextTitle from '../UI/text-title/text-title';

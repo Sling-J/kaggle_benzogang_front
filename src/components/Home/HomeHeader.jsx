@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Wrapper } from '../style'
 
 import './Home.css'
@@ -18,7 +19,7 @@ const HomeHeader = () => {
                </p>
                <div className="register-now transition">
                   <i className="fa fa-sign-in" aria-hidden="true"></i>
-                  <a href="/">Register with Email</a>
+                  <Link to="/signup">Register with Email</Link>
                </div>
             </div>
             <div className="header-img">
