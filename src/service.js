@@ -10,6 +10,7 @@ const instance = axios.create({
 });
 
 export const Auth = {
+	login: values => instance.post('/users/token-auth/', values),
 	registerUser: values => instance.post('/users/create/', values)
 }
 

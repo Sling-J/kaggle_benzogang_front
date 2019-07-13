@@ -19,14 +19,13 @@ const RegisterPage = ({ registerUser, loadingOfForm, errorMessage, userData }) =
    )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
    loadingOfForm: state.authReducer.loadingOfForm,
    errorMessage: state.authReducer.errorMessage,
    userData: state.authReducer.userData
 })
 
-const mapDispatchToProps = {
-   registerUser
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
+export default connect(
+   mapStateToProps, 
+   { registerUser }
+)(RegisterPage);

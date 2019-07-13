@@ -8,7 +8,7 @@ import Spinner from '../UI/spinner/spinner'
 
 import './Auth.css'
 
-const RegisterForm = ({ errors, touched, loadingOfForm, errorMessage, userData }) => {
+const RegisterForm = ({ touched, errors, loadingOfForm, errorMessage, userData }) => {
    const _renderMessage = message => (
       <span style={{color: 'tomato'}}> { message }</span>
    );
@@ -39,7 +39,7 @@ const RegisterForm = ({ errors, touched, loadingOfForm, errorMessage, userData }
             </FormGroup>
             <FormGroup>
                {errorMessage && <p>{_renderMessage(errorMessage)}</p>}
-               { userData && <p>Successfully registered. <Link to="signin">Log on</Link></p> }
+               { userData && <p>Successfully registered. <Link to="signin">Login</Link></p> }
             </FormGroup>
             <FormGroup>
                {loadingOfForm && <Spinner />}

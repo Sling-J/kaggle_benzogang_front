@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { FormGroup } from './style';
+import Spinner from '../UI/spinner/spinner'
 
 import './Auth.css'
 
-const LoginForm = () => {
+const LoginForm = ({ touched, errors, loadingOfForm, errorMessage, loginUserData }) => {
    const _renderMessage = message => (
       <span style={{color: 'tomato'}}> { message }</span>
    );
@@ -18,20 +19,21 @@ const LoginForm = () => {
          <Form>
             <FormGroup>
                <Field type="email" name="email" placeholder="Email" />
+               { touched.username && errors.username && _renderMessage(errors.username) }
             </FormGroup>
             <FormGroup>
                <Field type="password" name="password" placeholder="Password" />
+               { touched.username && errors.username && _renderMessage(errors.username) }
             </FormGroup>
-
             <FormGroup>
                <button className="transition" type="submit">Sign in</button>
             </FormGroup>
-            {/* <FormGroup>
+            <FormGroup>
                {errorMessage && <p>{_renderMessage(errorMessage)}</p>}
-            </FormGroup> */}
-            {/* <FormGroup>
+            </FormGroup>
+            <FormGroup>
                {loadingOfForm && <Spinner />}
-            </FormGroup> */}
+            </FormGroup>
          </Form>
 
          <p className="auth-other">
@@ -42,5 +44,31 @@ const LoginForm = () => {
 }
 
 export default withFormik({
-   
+   mapPropsToValues: () => ({
+      username: '',
+      email: '',
+      password: '',
+   }),
+   handleSubmit: (values, { props }) => {
+      props.login(values);
+   },
+   validationSchema: Yup.object().shape({
+      username: Yup.string().required(),
+      email: Yup.string().email('Email not valid').required(),
+      password: Yup.string()
+         .min(8)
+         .required()
+         .matches(/\d/, {
+            message: 'Must be one number',
+            excludeEmptyString: true
+         })
+         .matches(/[a-z]/, {
+            message: 'Lowercase',
+            excludeEmptyString: true
+         })
+         .matches(/[A-Z]/, {
+            message: 'Uppercase',
+            excludeEmptyString: true
+         })
+   }),
 })(LoginForm);

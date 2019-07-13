@@ -1,9 +1,13 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeEvery, take } from 'redux-saga/effects'
 import { Auth } from '../service';
 
-export const REGISTER_REQUEST = `REGISTER_REQUEST`;
-export const REGISTER_SUCCESS = `REGISTER_SUCCESS`;
-export const REGISTER_ERROR = `REGISTER_ERROR`;
+const LOGIN_REQUEST = 'LOGIN_REQUEST';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const LOGIN_ERROR = 'LOGIN_ERROR';
+
+const REGISTER_REQUEST = `REGISTER_REQUEST`;
+const REGISTER_SUCCESS = `REGISTER_SUCCESS`;
+const REGISTER_ERROR = `REGISTER_ERROR`;
 
 const initialState = {
    loadingOfForm: false,
@@ -16,6 +20,7 @@ const initialState = {
  */
 export default (state = initialState, action) => {
    switch (action.type) {
+      case LOGIN_REQUEST:
       case REGISTER_REQUEST:
          return {
             ...state,
@@ -28,6 +33,14 @@ export default (state = initialState, action) => {
             loadingOfForm: false,
             errorMessage: null,
             userData: action.payload
+         }
+
+      case LOGIN_SUCCESS:
+         return {
+            ...state,
+            loadingOfForm: false,
+            errorMessage: null,
+            loginUserData: action.payload
          }
 
       case REGISTER_ERROR:
@@ -46,6 +59,11 @@ export default (state = initialState, action) => {
  * Action Creators
  */
 
+export const login = dataOfForm => ({
+   type: LOGIN_REQUEST,
+   payload: dataOfForm
+})
+
 export const registerUser = dataOfForm => ({
    type: REGISTER_REQUEST,
    payload: dataOfForm
@@ -55,9 +73,23 @@ export const registerUser = dataOfForm => ({
  * Sagas
  */
 
+
+function* loginSaga() {
+   while (true) {
+      const action = yield take(LOGIN_REQUEST);
+
+      try {
+         console.log(action);
+         // const response = yield call(Auth.login, a)
+      } catch (error) {
+         console.log(error)
+      }
+   }
+}
+
 function* registerUserSaga(action) {
    try {
-      const response = yield call(Auth.registerUser, action.payload);
+      const response = yield call(Auth.registerUser, action.payload)
       
       if (response.status === 201 || response.status === 200) {
          yield put({
