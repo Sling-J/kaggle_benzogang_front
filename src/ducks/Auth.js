@@ -59,7 +59,7 @@ function* registerUserSaga(action) {
    try {
       const response = yield call(Auth.registerUser, action.payload);
       
-      if (response.status === 201) {
+      if (response.status === 201 || response.status === 200) {
          yield put({
             type: REGISTER_SUCCESS,
             payload: response.data

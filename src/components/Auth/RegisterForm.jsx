@@ -1,6 +1,6 @@
 import React from 'react';
 import { withFormik, Form, Field } from 'formik';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { FormGroup } from './style';
@@ -39,7 +39,7 @@ const RegisterForm = ({ errors, touched, loadingOfForm, errorMessage, userData }
             </FormGroup>
             <FormGroup>
                {errorMessage && <p>{_renderMessage(errorMessage)}</p>}
-               {/* { userData && <p>Successfully registered. <Link to="signin">Log on</Link></p> } */}
+               { userData && <p>Successfully registered. <Link to="signin">Log on</Link></p> }
             </FormGroup>
             <FormGroup>
                {loadingOfForm && <Spinner />}
@@ -62,13 +62,39 @@ export default withFormik({
    }),
    handleSubmit: (values, { props }) => {
       props.registerUser(values);
-      values.password = '';
-      values.password2 = '';
    },
    validationSchema: Yup.object().shape({
       username: Yup.string().required(),
       email: Yup.string().email('Email not valid').required(),
-      password: Yup.string().required(),
-      password2: Yup.string().required()
+      password: Yup.string()
+         .min(8)
+         .required()
+         .matches(/\d/, {
+            message: 'Must be one number',
+            excludeEmptyString: true
+         })
+         .matches(/[a-z]/, {
+            message: 'Lowercase',
+            excludeEmptyString: true
+         })
+         .matches(/[A-Z]/, {
+            message: 'Uppercase',
+            excludeEmptyString: true
+         }),
+      password2: Yup.string()
+         .min(8)
+         .required()
+         .matches(/\d/, {
+            message: 'Must be number number',
+            excludeEmptyString: true
+         })
+         .matches(/[a-z]/, {
+            message: 'Lowercase',
+            excludeEmptyString: true
+         })
+         .matches(/[A-Z]/, {
+            message: 'Uppercase',
+            excludeEmptyString: true
+         }),
    }),
 })(RegisterForm);
