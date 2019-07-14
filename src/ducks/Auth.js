@@ -79,10 +79,18 @@ function* loginSaga() {
       const action = yield take(LOGIN_REQUEST);
 
       try {
-         console.log(action);
-         // const response = yield call(Auth.login, a)
+         const response = yield call(Auth.login, action.payload)
+
+         yield console.log(response);
       } catch (error) {
-         console.log(error)
+         console.log(error);
+         
+         if (error.response.data.non_field_errors) {
+            yield put({
+               type: LOGIN_ERROR,
+               payload: error.response.data.non_field_errors[0]
+            })
+         }
       }
    }
 }
@@ -100,15 +108,18 @@ function* registerUserSaga(action) {
    } catch (error) {
       console.log(error)
 
-      yield put({
-         type: REGISTER_ERROR,
-         payload: error.response.data.password[0]
-      })
+      if (error.response.data.password[0]) {
+         yield put({
+            type: REGISTER_ERROR,
+            payload: error.response.data.password[0]
+         })
+      }
    }
 }
 
 export const saga = function* () {
    yield all([
+      loginSaga(),
       takeEvery(REGISTER_REQUEST, registerUserSaga)
    ])
 }

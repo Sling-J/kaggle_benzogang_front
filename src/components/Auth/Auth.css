@@ -36,11 +36,19 @@
    padding: 8px 35px;
 }
 
-.auth-box button:hover {
+.auth-box button:hover:enabled {
    background: #1380ad;
    cursor: pointer;
 }
 
 .auth-other {
    margin-top: 10px;
+}
+
+.loader {
+   margin: 40px auto 20px;
+}
+
+button:disabled {
+   opacity: 0.5;
 }

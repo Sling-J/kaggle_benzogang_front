@@ -1,12 +1,12 @@
 .loader {
    color: #20BEFF;
-   font-size: 40px;
+   font-size: 30px;
    text-indent: -9999em;
    overflow: hidden;
    width: 1em;
    height: 1em;
    border-radius: 50%;
-   margin: 15px 0;
+   margin: 20px 0;
    position: relative;
    -webkit-transform: translateZ(0);
    -ms-transform: translateZ(0);

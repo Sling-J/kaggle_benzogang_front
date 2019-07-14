@@ -16,17 +16,18 @@ const LoginForm = ({ touched, errors, loadingOfForm, errorMessage, loginUserData
    return (
       <div className="auth-box">
          <h1>Sign in</h1>
+         
          <Form>
             <FormGroup>
-               <Field type="email" name="email" placeholder="Email" />
+               <Field type="username" name="username" placeholder="Username" />
                { touched.username && errors.username && _renderMessage(errors.username) }
             </FormGroup>
             <FormGroup>
                <Field type="password" name="password" placeholder="Password" />
-               { touched.username && errors.username && _renderMessage(errors.username) }
+               { touched.password && errors.password && _renderMessage(errors.password) }
             </FormGroup>
             <FormGroup>
-               <button className="transition" type="submit">Sign in</button>
+               <button className="transition" type="submit" disabled={loadingOfForm} >Sign in</button>
             </FormGroup>
             <FormGroup>
                {errorMessage && <p>{_renderMessage(errorMessage)}</p>}
@@ -46,7 +47,6 @@ const LoginForm = ({ touched, errors, loadingOfForm, errorMessage, loginUserData
 export default withFormik({
    mapPropsToValues: () => ({
       username: '',
-      email: '',
       password: '',
    }),
    handleSubmit: (values, { props }) => {
@@ -54,7 +54,6 @@ export default withFormik({
    },
    validationSchema: Yup.object().shape({
       username: Yup.string().required(),
-      email: Yup.string().email('Email not valid').required(),
       password: Yup.string()
          .min(8)
          .required()
