@@ -8,7 +8,7 @@ import Spinner from '../UI/spinner/spinner'
 
 import './Auth.css'
 
-const RegisterForm = ({ touched, errors, loadingOfForm, errorMessage, userData }) => {
+const RegisterForm = ({ touched, errors, loadingOfForm, errorMessage }) => {
    const _renderMessage = message => (
       <span style={{color: 'tomato'}}> { message }</span>
    );
@@ -33,13 +33,11 @@ const RegisterForm = ({ touched, errors, loadingOfForm, errorMessage, userData }
                <Field type="password" name="password2" placeholder="Repeat password" />
                { touched.password2 && errors.password2 && _renderMessage(errors.password2) }
             </FormGroup>
-
             <FormGroup>
                <button className="transition" disabled={loadingOfForm} type="submit">Sign up</button>
             </FormGroup>
             <FormGroup>
                {errorMessage && <p>{_renderMessage(errorMessage)}</p>}
-               { userData && <p>Successfully registered. <Link to="signin">Login</Link></p> }
             </FormGroup>
             <FormGroup>
                {loadingOfForm && <Spinner />}
@@ -47,11 +45,11 @@ const RegisterForm = ({ touched, errors, loadingOfForm, errorMessage, userData }
          </Form>
 
          <p className="auth-other">
-            <Link to="/signin">Sign in</Link>
+            <Link to="/sign-in">Sign in</Link>
          </p>
       </div>
    )
-}
+};
 
 export default withFormik({
    mapPropsToValues: () => ({

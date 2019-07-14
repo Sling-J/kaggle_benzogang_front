@@ -6,24 +6,22 @@ import { login } from '../ducks/Auth';
 import LoginForm from '../components/Auth/LoginForm';
 import { Wrapper } from '../components/style'
 
-const LoginPage = ({ login, loadingOfForm, errorMessage, loginUserData }) => {
+const LoginPage = ({ login, loadingOfForm, loginErrorMessage }) => {
    return (
       <Wrapper>
          <LoginForm
             login={login}
             loadingOfForm={loadingOfForm}
-            errorMessage={errorMessage}
-            loginUserData={loginUserData}
+            loginErrorMessage={loginErrorMessage}
           />
       </Wrapper>
    )
-}
+};
 
 const mapStateToProps = state => ({
    loadingOfForm: state.authReducer.loadingOfForm,
-   errorMessage: state.authReducer.errorMessage,
-   loginUserData: state.authReducer.userData
-})
+   loginErrorMessage: state.authReducer.loginErrorMessage
+});
 
 export default connect(
    mapStateToProps, 

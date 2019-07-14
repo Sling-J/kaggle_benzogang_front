@@ -20,7 +20,7 @@ const Menu = () => {
             </ul>
          </div>
          <div className="login-wrap">
-            <Link to="/signin">Sing in</Link>
+            <Link to="/sign-in">Sing in</Link>
          </div>
       </NavMenu>
    )

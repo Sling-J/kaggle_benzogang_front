@@ -1,5 +1,5 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
-import { Datasets } from '../service';
+import {all, call, put, takeEvery} from 'redux-saga/effects'
+import {Datasets} from '../service';
 
 export const DATASETS_FETCH_REQUEST = `DATASETS_REQUEST`;
 export const DATASETS_FETCH_SUCCESS = `DATASETS_SUCCESS`;
@@ -14,7 +14,7 @@ const initialState = {
    errorMessage: null,
    datasets: null,
    createdDataset: null
-}
+};
 
 /**
  * Reducer
@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
          return {
             ...state,
             loadingOfData: true
-         }
+         };
 
       case DATASETS_CREATE_SUCCESS:
          return {
@@ -34,7 +34,7 @@ export default (state = initialState, action) => {
             loadingOfData: false,
             errorMessage: false,
             createdDataset: action.payload
-         }                  
+         };
 
       case DATASETS_FETCH_SUCCESS:
          return {
@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
             loadingOfData: false,
             errorMessage: null,
             datasets: action.payload
-         }
+         };
 
       case DATASETS_FETCH_ERROR:
       case DATASETS_CREATE_ERROR:
@@ -50,7 +50,7 @@ export default (state = initialState, action) => {
             ...state,
             loadingOfData: false,
             errorMessage: action.payload
-         }
+         };
 
       default:
          return state
@@ -63,12 +63,12 @@ export default (state = initialState, action) => {
 
 export const fetchDatasets = () => ({
    type: DATASETS_FETCH_REQUEST
-})
+});
 
 export const createDatsets = (data) => ({
    type: DATASETS_CREATE_REQUEST,
    payload: data
-})
+});
 
 /**
  * Sagas
@@ -86,21 +86,21 @@ function* fetchDatasetsSaga() {
          })
       }
    } catch (error) {
-      console.log(error)
+      console.log(error);
 
-      yield put({ type: DATASETS_FETCH_ERROR })
+      yield put({type: DATASETS_FETCH_ERROR})
    }
 }
 
 function* createDatasets(action) {
    try {
-      const response = yield call(Datasets.datasetsCreate, action.type)
+      const response = yield call(Datasets.datasetsCreate, action.type);
 
       console.log(response);
    } catch (error) {
       console.log(error.response);
 
-      yield put({ type: DATASETS_CREATE_ERROR })
+      yield put({type: DATASETS_CREATE_ERROR})
    }
 }
 
@@ -109,4 +109,4 @@ export const saga = function* () {
       takeEvery(DATASETS_FETCH_REQUEST, fetchDatasetsSaga),
       takeEvery(DATASETS_CREATE_REQUEST, createDatasets)
    ])
-}
+};

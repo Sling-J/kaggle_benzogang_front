@@ -1,4 +1,5 @@
-import { all, call, put, takeEvery, take } from 'redux-saga/effects'
+import { all, call, put, take } from 'redux-saga/effects'
+
 import { Auth } from '../service';
 
 const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -11,9 +12,11 @@ const REGISTER_ERROR = `REGISTER_ERROR`;
 
 const initialState = {
    loadingOfForm: false,
+   userData: null,
    errorMessage: null,
-   userData: null
-}
+   loginUserData: null,
+   loginErrorMessage: null
+};
 
 /**
  * Reducer
@@ -25,7 +28,7 @@ export default (state = initialState, action) => {
          return {
             ...state,
             loadingOfForm: true
-         }
+         };
 
       case REGISTER_SUCCESS:
          return {
@@ -33,7 +36,7 @@ export default (state = initialState, action) => {
             loadingOfForm: false,
             errorMessage: null,
             userData: action.payload
-         }
+         };
 
       case LOGIN_SUCCESS:
          return {
@@ -41,14 +44,21 @@ export default (state = initialState, action) => {
             loadingOfForm: false,
             errorMessage: null,
             loginUserData: action.payload
-         }
+         };
 
       case REGISTER_ERROR:
          return {
             ...state,
             loadingOfForm: false,
             errorMessage: action.payload
-         }
+         };
+
+      case LOGIN_ERROR:
+         return {
+            ...state,
+            loadingOfForm: false,
+            loginErrorMessage: action.payload
+         };
 
       default:
          return state
@@ -62,29 +72,30 @@ export default (state = initialState, action) => {
 export const login = dataOfForm => ({
    type: LOGIN_REQUEST,
    payload: dataOfForm
-})
+});
 
 export const registerUser = dataOfForm => ({
    type: REGISTER_REQUEST,
    payload: dataOfForm
-})
+});
 
 /**
  * Sagas
  */
-
 
 function* loginSaga() {
    while (true) {
       const action = yield take(LOGIN_REQUEST);
 
       try {
-         const response = yield call(Auth.login, action.payload)
+         const response = yield call(Auth.login, action.payload);
 
-         yield console.log(response);
+         if (response.status === 200) {
+            localStorage.setItem('AUTH_TOKEN', response.data.token);
+
+            yield put({ type: LOGIN_SUCCESS })
+         }
       } catch (error) {
-         console.log(error);
-         
          if (error.response.data.non_field_errors) {
             yield put({
                type: LOGIN_ERROR,
@@ -95,24 +106,28 @@ function* loginSaga() {
    }
 }
 
-function* registerUserSaga(action) {
-   try {
-      const response = yield call(Auth.registerUser, action.payload)
-      
-      if (response.status === 201 || response.status === 200) {
-         yield put({
-            type: REGISTER_SUCCESS,
-            payload: response.data
-         })
-      }
-   } catch (error) {
-      console.log(error)
+function* registerUserSaga() {
+   while (true) {
+      const action = yield take(REGISTER_REQUEST);
 
-      if (error.response.data.password[0]) {
-         yield put({
-            type: REGISTER_ERROR,
-            payload: error.response.data.password[0]
-         })
+      try {
+         const response = yield call(Auth.registerUser, action.payload);
+
+         if (response.status === 201 || response.status === 200) {
+            yield put({
+               type: REGISTER_SUCCESS,
+               payload: response.data
+            });
+         }
+      } catch (error) {
+         console.log(error);
+
+         if (error.response.data.password[0]) {
+            yield put({
+               type: REGISTER_ERROR,
+               payload: error.response.data.password[0]
+            })
+         }
       }
    }
 }
@@ -120,6 +135,6 @@ function* registerUserSaga(action) {
 export const saga = function* () {
    yield all([
       loginSaga(),
-      takeEvery(REGISTER_REQUEST, registerUserSaga)
+      registerUserSaga()
    ])
-}
+};

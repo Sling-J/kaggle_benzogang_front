@@ -1,6 +1,5 @@
-import React, { Fragment } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { NotificationContainer } from 'react-notifications';
+import React, {Fragment} from 'react';
+import {Route, Switch} from 'react-router-dom';
 
 import Home from '../pages/HomePage';
 import RegisterPage from '../pages/RegisterPage';
@@ -12,20 +11,19 @@ import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
 const Root = () => {
-	return (
+   return (
       <Fragment>
-         <NotificationContainer />
-         <Header />
+         <Header/>
          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/signup" component={RegisterPage} />
-            <Route path="/signin" component={LoginPage} />
-            <Route exact path="/datasets/create" component={DatasetsCreatePage} />
-            <Route path="/datasets" component={DatasetsPage} />
+            <Route exact path="/" component={Home}/>
+            <Route path="/sign-up" component={RegisterPage}/>
+            <Route path="/sign-in" component={LoginPage}/>
+            <Route exact path="/datasets/create" component={DatasetsCreatePage}/>
+            <Route path="/datasets" component={DatasetsPage}/>
          </Switch>
-         <Footer />
+         <Footer/>
       </Fragment>
    )
-}
+};
 
 export default Root;

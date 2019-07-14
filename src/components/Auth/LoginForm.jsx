@@ -8,7 +8,7 @@ import Spinner from '../UI/spinner/spinner'
 
 import './Auth.css'
 
-const LoginForm = ({ touched, errors, loadingOfForm, errorMessage, loginUserData }) => {
+const LoginForm = ({ touched, errors, loadingOfForm, loginErrorMessage }) => {
    const _renderMessage = message => (
       <span style={{color: 'tomato'}}> { message }</span>
    );
@@ -30,7 +30,7 @@ const LoginForm = ({ touched, errors, loadingOfForm, errorMessage, loginUserData
                <button className="transition" type="submit" disabled={loadingOfForm} >Sign in</button>
             </FormGroup>
             <FormGroup>
-               {errorMessage && <p>{_renderMessage(errorMessage)}</p>}
+               {loginErrorMessage && <p>{_renderMessage(loginErrorMessage)}</p>}
             </FormGroup>
             <FormGroup>
                {loadingOfForm && <Spinner />}
@@ -38,11 +38,11 @@ const LoginForm = ({ touched, errors, loadingOfForm, errorMessage, loginUserData
          </Form>
 
          <p className="auth-other">
-            <Link to="/signup">Sign up</Link>
+            <Link to="/sign-up">Sign up</Link>
          </p>
       </div>
    )
-}
+};
 
 export default withFormik({
    mapPropsToValues: () => ({

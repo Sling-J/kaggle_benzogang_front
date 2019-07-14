@@ -12,11 +12,11 @@ const Footer = () => {
             <div className="footer-logo">
                <h2>Kaggle.kz</h2>
 
-               <p>Have an account? <Link to="/signin">Sign in</Link></p>
+               <p>Have an account? <Link to="/sign-in">Sign in</Link></p>
             </div>
          </Wrapper>
 		</footer>
    )
-}
+};
 
 export default withRouter(Footer);
